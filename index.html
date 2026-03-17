@@ -731,15 +731,7 @@ function createShareImageBlob() {
     ctx.stroke();
 
     ctx.textAlign = 'center';
-    ctx.fillStyle = palette.light;
-    ctx.font = '600 36px Cinzel, serif';
-    ctx.fillText('Günlük Söz', canvas.width / 2, 245);
-
-    ctx.font = '400 24px Crimson Pro, serif';
-    ctx.fillStyle = 'rgba(245,236,215,0.65)';
-    ctx.fillText(document.getElementById('app-date').textContent || '', canvas.width / 2, 290);
-
-    const lineY = 340;
+    const lineY = 280;
     const lineGradient = ctx.createLinearGradient(340, lineY, 740, lineY);
     lineGradient.addColorStop(0, 'rgba(201,168,76,0)');
     lineGradient.addColorStop(0.5, palette.gold);
@@ -754,7 +746,7 @@ function createShareImageBlob() {
     ctx.fillStyle = palette.text;
     ctx.font = 'italic 58px Playfair Display, serif';
     const quoteLines = wrapCanvasText(ctx, `“${currentQuote.text}”`, 700);
-    let y = 470;
+    let y = 410;
     for (const line of quoteLines) {
       ctx.fillText(line, canvas.width / 2, y);
       y += 78;
@@ -762,11 +754,7 @@ function createShareImageBlob() {
 
     ctx.font = '400 32px Crimson Pro, serif';
     ctx.fillStyle = 'rgba(245,236,215,0.72)';
-    ctx.fillText(`— ${currentQuote.source}`, canvas.width / 2, Math.min(y + 40, 915));
-
-    ctx.fillStyle = palette.light;
-    ctx.font = '400 26px Cinzel, serif';
-    ctx.fillText('Günlük Söz', canvas.width / 2, 1035);
+    ctx.fillText(`— ${currentQuote.source}`, canvas.width / 2, Math.min(y + 48, 980));
 
     canvas.toBlob(blob => {
       if (!blob) {
