@@ -345,16 +345,25 @@ async function fetchQuote(cat) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-3-5-haiku-20241022',
       max_tokens: 300,
       system: 'Sen Türk kültürü ve İslam medeniyetini iyi bilen bir bilgesin. Verilen kategoriye uygun GERÇEK, tarihi olarak doğrulanmış bir söz seç. Cevabını YALNIZCA şu JSON formatında ver, başka hiçbir şey yazma: {"quote": "...söz...", "source": "...kaynak..."}',
       messages: [{ role: 'user', content: `Kategori: ${cat.label}\n${cat.prompt}\nSadece JSON döndür.` }]
     })
   });
-  if (!res.ok) throw new Error('API ' + res.status);
-  const data = await res.json();
+
+  const data = await res.json().catch(() => null);
+  if (!res.ok) {
+    const apiError = data?.error?.message || data?.error || data?.message || ('API ' + res.status);
+    throw new Error(apiError);
+  }
+
   const raw = data.content?.find(b => b.type === 'text')?.text || '';
+  if (!raw) throw new Error('API boş cevap verdi');
+
   const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
+  if (!parsed?.quote || !parsed?.source) throw new Error('API eksik alan döndürdü');
+
   return { text: parsed.quote, source: parsed.source };
 }
 
@@ -382,11 +391,11 @@ async function loadNewQuote() {
     currentQuote = { ...q, cat: cat.label, icon: cat.icon };
     showQuote(q.text, q.source);
   } catch (e) {
-    console.error(e);
+    console.error('Yeni söz alınamadı:', e);
     const f = FALLBACKS[Math.floor(Math.random() * FALLBACKS.length)];
     currentQuote = { ...f, cat: cat.label, icon: cat.icon };
     showQuote(f.text, f.source);
-    showToast('Bağlantı hatası · Yedek söz gösteriliyor');
+    showToast('Servis hatası · Yedek söz gösteriliyor');
   }
 }
 
@@ -420,7 +429,7 @@ async function init() {
     try { localStorage.setItem(key, JSON.stringify(currentQuote)); } catch {}
     showQuote(q.text, q.source);
   } catch (e) {
-    console.error(e);
+    console.error('İlk söz alınamadı:', e);
     const f = FALLBACKS[dayNum % FALLBACKS.length];
     currentQuote = { ...f, cat: cat.label, icon: cat.icon };
     showQuote(f.text, f.source);
