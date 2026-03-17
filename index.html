@@ -297,6 +297,49 @@ const CATEGORIES = [
 
 let currentQuote = null;
 let sessionUsed = [];
+let localUsed = {};
+let apiDisabled = false;
+let apiNoticeShown = false;
+
+try {
+  apiDisabled = sessionStorage.getItem('quote-api-disabled') === '1'
+    || localStorage.getItem('quote-api-disabled') === '1';
+} catch {}
+
+const LOCAL_QUOTES = {
+  dini: [
+    { text: 'Sabir, imanin yarisidir.', source: 'Hz. Ali (r.a.)' },
+    { text: 'Ameller niyetlere göredir.', source: 'Hz. Muhammed (s.a.v.)' },
+    { text: 'Ne olursan ol, yine gel.', source: 'Mevlana Celaleddin Rumi' },
+    { text: 'Insanlara merhamet etmeyene Allah da merhamet etmez.', source: 'Hz. Muhammed (s.a.v.)' },
+    { text: 'Gonul yap ki gonlunde Hak dogsun.', source: 'Haci Bektas-i Veli' },
+    { text: 'Az soz, cok mana tasir.', source: 'Yunus Emre' }
+  ],
+  milli: [
+    { text: 'Vatanini en cok seven, gorevini en iyi yapandir.', source: 'Mustafa Kemal Ataturk' },
+    { text: 'Allah bu millete bir daha Istiklal Marsi yazdirmasin.', source: 'Mehmet Akif Ersoy' },
+    { text: 'Bayraklari bayrak yapan ustundeki kandir.', source: 'Arif Nihat Asya' },
+    { text: 'Yigit dustugu yerden kalkar.', source: 'Turk Atasozu' },
+    { text: 'Birlikten kuvvet dogar.', source: 'Turk Atasozu' },
+    { text: 'Egemenlik kayitsiz sartsiz milletindir.', source: 'Mustafa Kemal Ataturk' }
+  ],
+  hikmet: [
+    { text: 'Az olsun, oz olsun.', source: 'Turk Atasozu' },
+    { text: 'Sakla samani, gelir zamani.', source: 'Turk Atasozu' },
+    { text: 'Acele ise seytan karisir.', source: 'Turk Atasozu' },
+    { text: 'Damlayan su tasi deler.', source: 'Turk Atasozu' },
+    { text: 'Bilenle bilmeyen bir olmaz.', source: 'Anonim hikmet sozu' },
+    { text: 'Cok soz yuku, az soz hikmeti goturur.', source: 'Anadolu irfani' }
+  ],
+  aile: [
+    { text: 'Cennet annelerin ayaklari altindadir.', source: 'Hz. Muhammed (s.a.v.)' },
+    { text: 'Yuvayi disi kus yapar.', source: 'Turk Atasozu' },
+    { text: 'Aile, huzurun ilk mektebidir.', source: 'Anonim' },
+    { text: 'Baba, evladin sirtini dayadigi dagdir.', source: 'Anonim' },
+    { text: 'Sevgi paylastikca cogalir.', source: 'Anonim' },
+    { text: 'Bir evde saygi varsa, o evde bereket vardir.', source: 'Anadolu sozu' }
+  ]
+};
 
 function setDate() {
   const now = new Date();
@@ -374,6 +417,65 @@ const FALLBACKS = [
   { text: 'Cennet, annelerin ayakları altındadır.', source: 'Hz. Muhammed (s.a.v.)' },
 ];
 
+function shouldDisableApi(error) {
+  const message = String(error?.message || error || '').toLowerCase();
+  return message.includes('credit balance is too low')
+    || message.includes('plans & billing')
+    || message.includes('purchase credits');
+}
+
+function markApiDisabled() {
+  apiDisabled = true;
+  try {
+    sessionStorage.setItem('quote-api-disabled', '1');
+    localStorage.setItem('quote-api-disabled', '1');
+  } catch {}
+}
+
+function getLocalQuote(cat, seed) {
+  const pool = LOCAL_QUOTES[cat.id] || FALLBACKS;
+  if (!pool.length) return FALLBACKS[0];
+
+  if (typeof seed === 'number') {
+    return pool[seed % pool.length];
+  }
+
+  const used = localUsed[cat.id] || [];
+  const availableIndexes = pool
+    .map((_, index) => index)
+    .filter(index => !used.includes(index));
+
+  const index = availableIndexes.length > 0
+    ? availableIndexes[Math.floor(Math.random() * availableIndexes.length)]
+    : Math.floor(Math.random() * pool.length);
+
+  localUsed[cat.id] = availableIndexes.length > 0 ? [...used, index] : [index];
+  return pool[index];
+}
+
+async function resolveQuote(cat, options = {}) {
+  const { seed, toastOnLocal = false } = options;
+
+  if (!apiDisabled) {
+    try {
+      return await fetchQuote(cat);
+    } catch (error) {
+      console.error('API sozu alinamadi:', error);
+      if (shouldDisableApi(error)) {
+        markApiDisabled();
+        if (toastOnLocal && !apiNoticeShown) {
+          showToast('Yapay zeka kredisi bitti · Yerel sozler gosteriliyor');
+          apiNoticeShown = true;
+        }
+      } else if (toastOnLocal) {
+        showToast('Servis hatasi · Yerel soz gosteriliyor');
+      }
+    }
+  }
+
+  return getLocalQuote(cat, seed);
+}
+
 async function loadNewQuote() {
   const unused = CATEGORIES.filter(c => !sessionUsed.includes(c.id));
   const cat = unused.length > 0
@@ -386,17 +488,9 @@ async function loadNewQuote() {
   applyTheme(cat);
   showLoading();
 
-  try {
-    const q = await fetchQuote(cat);
-    currentQuote = { ...q, cat: cat.label, icon: cat.icon };
-    showQuote(q.text, q.source);
-  } catch (e) {
-    console.error('Yeni söz alınamadı:', e);
-    const f = FALLBACKS[Math.floor(Math.random() * FALLBACKS.length)];
-    currentQuote = { ...f, cat: cat.label, icon: cat.icon };
-    showQuote(f.text, f.source);
-    showToast('Servis hatası · Yedek söz gösteriliyor');
-  }
+  const q = await resolveQuote(cat, { toastOnLocal: true });
+  currentQuote = { ...q, cat: cat.label, icon: cat.icon };
+  showQuote(q.text, q.source);
 }
 
 function getTodayKey() {
@@ -423,17 +517,10 @@ async function init() {
   applyTheme(cat);
   showLoading();
 
-  try {
-    const q = await fetchQuote(cat);
-    currentQuote = { ...q, cat: cat.label, icon: cat.icon };
-    try { localStorage.setItem(key, JSON.stringify(currentQuote)); } catch {}
-    showQuote(q.text, q.source);
-  } catch (e) {
-    console.error('İlk söz alınamadı:', e);
-    const f = FALLBACKS[dayNum % FALLBACKS.length];
-    currentQuote = { ...f, cat: cat.label, icon: cat.icon };
-    showQuote(f.text, f.source);
-  }
+  const q = await resolveQuote(cat, { seed: dayNum });
+  currentQuote = { ...q, cat: cat.label, icon: cat.icon };
+  try { localStorage.setItem(key, JSON.stringify(currentQuote)); } catch {}
+  showQuote(q.text, q.source);
 }
 
 function shareWhatsApp() {
