@@ -371,6 +371,99 @@ const LOCAL_QUOTES = {
   ]
 };
 
+CATEGORIES.splice(0, CATEGORIES.length, 
+  {
+    id: 'dini',
+    label: 'Dini · Manevi',
+    icon: '☪️',
+    theme: 't-ottoman',
+    prompt: 'Kur\'an-ı Kerim, hadis-i şerifler, Hz. Ali, Gazali, İmam Rabbani gibi kaynaklardan yaşlı insanların gönlüne dokunacak dini ve manevi bir söz.'
+  },
+  {
+    id: 'dua',
+    label: 'Dua · Teselli',
+    icon: '🤲',
+    theme: 't-ottoman',
+    prompt: 'Sabır, şükür, tevekkül, ahiret ümidi, kalp huzuru ve teselli temalı; insanı yumuşatan, içini ferahlatan bir söz veya dua cümlesi.'
+  },
+  {
+    id: 'hikmet',
+    label: 'Hikmet · İrfan',
+    icon: '🍃',
+    theme: 't-natural',
+    prompt: 'Anadolu irfanı, gönül terbiyesi, hayat tecrübesi ve tasavvufi hikmet taşıyan sade ama derin bir söz.'
+  },
+  {
+    id: 'deyis',
+    label: 'Gönül · Deyişler',
+    icon: '🌙',
+    theme: 't-ottoman',
+    prompt: 'Yunus Emre, Mevlânâ, Hacı Bektaş-ı Veli gibi isimlerden maneviyatı güçlendiren, dokunaklı ve içli bir deyiş.'
+  }
+);
+
+Object.assign(LOCAL_QUOTES, {
+  dini: [
+    { text: 'Sabır, imanın yarısıdır.', source: 'Hz. Ali (r.a.)' },
+    { text: 'Ameller niyetlere göredir.', source: 'Hz. Muhammed (s.a.v.)' },
+    { text: 'Kolaylaştırınız, zorlaştırmayınız.', source: 'Hz. Muhammed (s.a.v.)' },
+    { text: 'Kanaat tükenmez bir hazinedir.', source: 'Hz. Muhammed (s.a.v.)' },
+    { text: 'İnsanlara merhamet etmeyene Allah da merhamet etmez.', source: 'Hz. Muhammed (s.a.v.)' },
+    { text: 'Hiç bilenlerle bilmeyenler bir olur mu?', source: 'Kur’an-ı Kerim, Zümer 9' },
+    { text: 'Kalpler ancak Allah’ı anmakla huzur bulur.', source: 'Kur’an-ı Kerim, Ra’d 28' },
+    { text: 'Her zorlukla beraber bir kolaylık vardır.', source: 'Kur’an-ı Kerim, İnşirah 6' },
+    { text: 'Allah sabredenlerle beraberdir.', source: 'Kur’an-ı Kerim, Bakara 153' },
+    { text: 'Merhamet etmeyene merhamet olunmaz.', source: 'Hz. Muhammed (s.a.v.)' },
+    { text: 'Doğru söz yemin istemez.', source: 'Türk Atasözü' },
+    { text: 'Güzel ahlak, amellerin en hayırlısındandır.', source: 'İslami öğüt' }
+  ],
+  dua: [
+    { text: 'Rabbim kalbine ferahlık, ömrüne bereket versin.', source: 'Dua' },
+    { text: 'Sabreden gönül, sonunda rahmete kavuşur.', source: 'Manevi öğüt' },
+    { text: 'Bugünün yorgunluğu, Yaradan’a sığınılınca hafifler.', source: 'Teselli sözü' },
+    { text: 'Gönlüne düşen her sıkıntı, dua ile yumuşar.', source: 'Manevi öğüt' },
+    { text: 'Rabbin geciktirirse unutmaz, vakti gelince lütfeder.', source: 'Teselli sözü' },
+    { text: 'Ömür geçer; baki kalan hoş bir dua, temiz bir kalptir.', source: 'Gönül sözü' },
+    { text: 'İnşallah her gecenin sabahı, her derdin devası vardır.', source: 'Teselli sözü' },
+    { text: 'Ya Rabbi, gönlümü razı olanlardan eyle.', source: 'Dua' },
+    { text: 'Şükreden kalp, darlıktan da ferahlık devşirir.', source: 'Manevi öğüt' },
+    { text: 'Kalbini duaya aç; kapıları açan Allah’tır.', source: 'Gönül sözü' },
+    { text: 'Rızkı veren de, huzuru veren de Allah’tır.', source: 'Manevi öğüt' },
+    { text: 'Duan varsa ümidin de vardır.', source: 'Teselli sözü' }
+  ],
+  hikmet: [
+    { text: 'Az olsun, öz olsun.', source: 'Türk Atasözü' },
+    { text: 'Söz gümüşse sükût altındır.', source: 'Türk Atasözü' },
+    { text: 'Damlayan su taşı deler.', source: 'Türk Atasözü' },
+    { text: 'Acele işe şeytan karışır.', source: 'Türk Atasözü' },
+    { text: 'Akıl akıldan üstündür.', source: 'Türk Atasözü' },
+    { text: 'İşleyen demir ışıldar.', source: 'Türk Atasözü' },
+    { text: 'Bilenle bilmeyen bir olmaz.', source: 'Anonim hikmet sözü' },
+    { text: 'Çok söz yükü, az söz hikmeti götürür.', source: 'Anadolu irfanı' },
+    { text: 'Görünen köy kılavuz istemez.', source: 'Türk Atasözü' },
+    { text: 'Taşıma su ile değirmen dönmez.', source: 'Türk Atasözü' },
+    { text: 'Her işi vaktinde yapmak hikmettir.', source: 'Anadolu öğüdü' },
+    { text: 'Gönül kırmak kolay, yapmak ömür işidir.', source: 'Anadolu irfanı' }
+  ],
+  deyis: [
+    { text: 'Ne olursan ol, yine gel.', source: 'Mevlânâ Celâleddîn-i Rûmî' },
+    { text: 'İlim ilim bilmektir, ilim kendin bilmektir.', source: 'Yunus Emre' },
+    { text: 'Bir gönül yıktın ise bu kıldığın namaz değil.', source: 'Yunus Emre' },
+    { text: 'Gönül yap ki gönlünde Hak doğsun.', source: 'Hacı Bektaş-ı Veli' },
+    { text: 'Az söz, çok mânâ taşır.', source: 'Yunus Emre' },
+    { text: 'Sevelim, sevilelim; dünya kimseye kalmaz.', source: 'Yunus Emre' },
+    { text: 'Dert insanı olgunlaştırır, sabır insanı güzelleştirir.', source: 'Tasavvuf sözü' },
+    { text: 'Nice insanlar gördüm, üzerinde elbise yok; nice elbiseler gördüm, içinde insan yok.', source: 'Mevlânâ' },
+    { text: 'Aşkın aldığı gönülde, keder barınmaz.', source: 'Tasavvuf sözü' },
+    { text: 'Hak bir gönül verdi bana, ha demeden hayran olur.', source: 'Yunus Emre' },
+    { text: 'Yol odur ki doğru vara, göz odur ki Hakk’ı göre.', source: 'Yunus Emre' },
+    { text: 'İncinsen de incitme.', source: 'Hacı Bektaş-ı Veli’ye atfedilir' }
+  ]
+});
+
+delete LOCAL_QUOTES.milli;
+delete LOCAL_QUOTES.aile;
+
 function setDate() {
   const now = new Date();
   const days   = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
