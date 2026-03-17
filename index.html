@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Günlük Söz</title>
+<title>G&uuml;nl&uuml;k S&ouml;z</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cinzel:wght@500;600&family=Playfair+Display:ital,wght@0,700;1,600&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 <style>
@@ -80,24 +80,33 @@ body::before {
 .card-topbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px 14px;
-  border-bottom: 1px solid var(--border);
+  justify-content: center;
+  padding: 18px 20px 4px;
 }
-.badge {
-  display: flex; align-items: center; gap: 7px;
-  background: var(--gold-dim);
-  border: 1px solid rgba(201,168,76,0.3);
+.top-ornament {
+  width: 120px;
+  height: 14px;
+  position: relative;
+  opacity: 0.72;
+}
+.top-ornament::before,
+.top-ornament::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 42px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.top-ornament::before { left: 0; }
+.top-ornament::after { right: 0; }
+.top-ornament span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
   color: var(--gold-light);
-  font-family: 'Cinzel', serif;
-  font-size: 10.5px; letter-spacing: 1.8px;
-  padding: 5px 13px; border-radius: 20px;
-  text-transform: uppercase;
-}
-.ai-pill {
-  font-size: 9px; font-family: 'Cinzel', serif; letter-spacing: 1px;
-  color: var(--gold); opacity: 0.5;
-  border: 1px solid var(--border); padding: 3px 8px; border-radius: 10px;
+  font-size: 12px;
 }
 
 .quote-area {
@@ -228,24 +237,20 @@ body::before {
 <body class="t-ottoman">
 
 <div class="app-header">
-  <div class="app-logo">✦ Günlük Söz ✦</div>
+  <div class="app-logo">G&uuml;nl&uuml;k S&ouml;z</div>
   <div class="app-date" id="app-date"></div>
 </div>
 
 <div class="card" id="card">
   <div class="card-topbar">
-    <div class="badge">
-      <span class="badge-icon" id="badge-icon">☪️</span>
-      <span id="badge-label">Dini · Manevi</span>
-    </div>
-    <div class="ai-pill">✦ YAPAY ZEKÂ</div>
+    <div class="top-ornament"><span>&#10022;</span></div>
   </div>
 
   <div class="quote-area" id="quote-area">
     <div class="deco-line"></div>
     <div class="loading-wrap" id="loading">
       <div class="spinner"></div>
-      <div class="loading-text">Söz hazırlanıyor...</div>
+      <div class="loading-text">S&ouml;z haz&#305;rlan&#305;yor...</div>
     </div>
     <p class="quote-text" id="quote-text" style="display:none"></p>
     <div class="deco-line bottom" id="deco-bottom" style="display:none"></div>
@@ -260,23 +265,23 @@ body::before {
   <div class="actions">
     <button class="share-btn" id="shareBtn" onclick="shareWhatsApp()" disabled>
       <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.558 4.118 1.532 5.847L.057 23.012a.75.75 0 0 0 .93.93l5.166-1.475A11.946 11.946 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.853 0-3.587-.5-5.083-1.371l-.363-.217-3.767 1.075 1.075-3.767-.217-.363A9.945 9.945 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-      WhatsApp'ta Paylaş
+      WhatsApp'ta G&ouml;rsel Payla&#351;
     </button>
     <div class="bottom-row">
-      <button class="next-btn" onclick="loadNewQuote()">↻ &nbsp;Yeni Söz</button>
+      <button class="next-btn" onclick="loadNewQuote()">&#8635; &nbsp;Yeni S&ouml;z</button>
       <button class="fav-btn" onclick="saveFavorite()">♡ &nbsp;Kaydet</button>
-      <button class="fav-btn" onclick="openFavDrawer()">☰ &nbsp;Kayıtlar</button>
+      <button class="fav-btn" onclick="openFavDrawer()">☰ &nbsp;Kay&#305;tlar</button>
     </div>
   </div>
 </div>
 
-<div class="footer">Her gün güzel bir söz · Hayırlı olsun 🤲</div>
+<div class="footer">Her g&uuml;n g&uuml;zel bir s&ouml;z</div>
 
 <div class="fav-overlay" id="fav-overlay" onclick="closeFavDrawer()"></div>
 <div class="fav-drawer" id="fav-drawer">
   <div class="fav-header">
-    <div class="fav-title">✦ KAYDEDİLENLER</div>
-    <button class="fav-close" onclick="closeFavDrawer()">×</button>
+    <div class="fav-title">KAYDED&#304;LENLER</div>
+    <button class="fav-close" onclick="closeFavDrawer()">&times;</button>
   </div>
   <div id="fav-list"></div>
 </div>
@@ -308,36 +313,36 @@ try {
 
 const LOCAL_QUOTES = {
   dini: [
-    { text: 'Sabir, imanin yarisidir.', source: 'Hz. Ali (r.a.)' },
+    { text: 'Sabır, imanın yarısıdır.', source: 'Hz. Ali (r.a.)' },
     { text: 'Ameller niyetlere göredir.', source: 'Hz. Muhammed (s.a.v.)' },
     { text: 'Ne olursan ol, yine gel.', source: 'Mevlana Celaleddin Rumi' },
-    { text: 'Insanlara merhamet etmeyene Allah da merhamet etmez.', source: 'Hz. Muhammed (s.a.v.)' },
-    { text: 'Gonul yap ki gonlunde Hak dogsun.', source: 'Haci Bektas-i Veli' },
-    { text: 'Az soz, cok mana tasir.', source: 'Yunus Emre' }
+    { text: 'İnsanlara merhamet etmeyene Allah da merhamet etmez.', source: 'Hz. Muhammed (s.a.v.)' },
+    { text: 'Gönül yap ki gönlünde Hak doğsun.', source: 'Hacı Bektaş-ı Veli' },
+    { text: 'Az söz, çok mânâ taşır.', source: 'Yunus Emre' }
   ],
   milli: [
-    { text: 'Vatanini en cok seven, gorevini en iyi yapandir.', source: 'Mustafa Kemal Ataturk' },
-    { text: 'Allah bu millete bir daha Istiklal Marsi yazdirmasin.', source: 'Mehmet Akif Ersoy' },
-    { text: 'Bayraklari bayrak yapan ustundeki kandir.', source: 'Arif Nihat Asya' },
-    { text: 'Yigit dustugu yerden kalkar.', source: 'Turk Atasozu' },
-    { text: 'Birlikten kuvvet dogar.', source: 'Turk Atasozu' },
-    { text: 'Egemenlik kayitsiz sartsiz milletindir.', source: 'Mustafa Kemal Ataturk' }
+    { text: 'Vatanını en çok seven, görevini en iyi yapandır.', source: 'Mustafa Kemal Atatürk' },
+    { text: 'Allah bu millete bir daha İstiklal Marşı yazdırmasın.', source: 'Mehmet Akif Ersoy' },
+    { text: 'Bayrakları bayrak yapan üstündeki kandır.', source: 'Arif Nihat Asya' },
+    { text: 'Yiğit düştüğü yerden kalkar.', source: 'Türk Atasözü' },
+    { text: 'Birlikten kuvvet doğar.', source: 'Türk Atasözü' },
+    { text: 'Egemenlik kayıtsız şartsız milletindir.', source: 'Mustafa Kemal Atatürk' }
   ],
   hikmet: [
-    { text: 'Az olsun, oz olsun.', source: 'Turk Atasozu' },
-    { text: 'Sakla samani, gelir zamani.', source: 'Turk Atasozu' },
-    { text: 'Acele ise seytan karisir.', source: 'Turk Atasozu' },
-    { text: 'Damlayan su tasi deler.', source: 'Turk Atasozu' },
-    { text: 'Bilenle bilmeyen bir olmaz.', source: 'Anonim hikmet sozu' },
-    { text: 'Cok soz yuku, az soz hikmeti goturur.', source: 'Anadolu irfani' }
+    { text: 'Az olsun, öz olsun.', source: 'Türk Atasözü' },
+    { text: 'Sakla samanı, gelir zamanı.', source: 'Türk Atasözü' },
+    { text: 'Acele işe şeytan karışır.', source: 'Türk Atasözü' },
+    { text: 'Damlayan su taşı deler.', source: 'Türk Atasözü' },
+    { text: 'Bilenle bilmeyen bir olmaz.', source: 'Anonim hikmet sözü' },
+    { text: 'Çok söz yükü, az söz hikmeti götürür.', source: 'Anadolu irfanı' }
   ],
   aile: [
-    { text: 'Cennet annelerin ayaklari altindadir.', source: 'Hz. Muhammed (s.a.v.)' },
-    { text: 'Yuvayi disi kus yapar.', source: 'Turk Atasozu' },
+    { text: 'Cennet annelerin ayakları altındadır.', source: 'Hz. Muhammed (s.a.v.)' },
+    { text: 'Yuvayı dişi kuş yapar.', source: 'Türk Atasözü' },
     { text: 'Aile, huzurun ilk mektebidir.', source: 'Anonim' },
-    { text: 'Baba, evladin sirtini dayadigi dagdir.', source: 'Anonim' },
-    { text: 'Sevgi paylastikca cogalir.', source: 'Anonim' },
-    { text: 'Bir evde saygi varsa, o evde bereket vardir.', source: 'Anadolu sozu' }
+    { text: 'Baba, evladın sırtını dayadığı dağdır.', source: 'Anonim' },
+    { text: 'Sevgi paylaştıkça çoğalır.', source: 'Anonim' },
+    { text: 'Bir evde saygı varsa, o evde bereket vardır.', source: 'Anadolu sözü' }
   ]
 };
 
@@ -351,8 +356,6 @@ function setDate() {
 
 function applyTheme(cat) {
   document.body.className = cat.theme;
-  document.getElementById('badge-icon').textContent  = cat.icon;
-  document.getElementById('badge-label').textContent = cat.label;
 }
 
 function showLoading() {
@@ -464,11 +467,11 @@ async function resolveQuote(cat, options = {}) {
       if (shouldDisableApi(error)) {
         markApiDisabled();
         if (toastOnLocal && !apiNoticeShown) {
-          showToast('Yapay zeka kredisi bitti · Yerel sozler gosteriliyor');
+          showToast('Yapay zeka kredisi bitti · Yerel sözler gösteriliyor');
           apiNoticeShown = true;
         }
       } else if (toastOnLocal) {
-        showToast('Servis hatasi · Yerel soz gosteriliyor');
+        showToast('Servis hatası · Yerel söz gösteriliyor');
       }
     }
   }
@@ -523,13 +526,157 @@ async function init() {
   showQuote(q.text, q.source);
 }
 
-function shareWhatsApp() {
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.arcTo(x + width, y, x + width, y + height, radius);
+  ctx.arcTo(x + width, y + height, x, y + height, radius);
+  ctx.arcTo(x, y + height, x, y, radius);
+  ctx.arcTo(x, y, x + width, y, radius);
+  ctx.closePath();
+}
+
+function wrapCanvasText(ctx, text, maxWidth) {
+  const words = text.split(/\s+/);
+  const lines = [];
+  let line = '';
+
+  for (const word of words) {
+    const test = line ? `${line} ${word}` : word;
+    if (ctx.measureText(test).width <= maxWidth) {
+      line = test;
+    } else {
+      if (line) lines.push(line);
+      line = word;
+    }
+  }
+
+  if (line) lines.push(line);
+  return lines;
+}
+
+function createShareImageBlob() {
+  return new Promise((resolve, reject) => {
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    if (!ctx) {
+      reject(new Error('Canvas hazirlanamadi'));
+      return;
+    }
+
+    const styles = getComputedStyle(document.body);
+    const palette = {
+      bg: styles.getPropertyValue('--bg').trim() || '#110b07',
+      card: styles.getPropertyValue('--card-bg').trim() || '#1e1108',
+      gold: styles.getPropertyValue('--gold').trim() || '#c9a84c',
+      light: styles.getPropertyValue('--gold-light').trim() || '#f0d080',
+      text: styles.getPropertyValue('--text').trim() || '#f5ecd7',
+      dim: styles.getPropertyValue('--text-dim').trim() || 'rgba(245,236,215,0.55)',
+      border: styles.getPropertyValue('--border').trim() || 'rgba(201,168,76,0.25)'
+    };
+
+    canvas.width = 1080;
+    canvas.height = 1350;
+
+    ctx.fillStyle = palette.bg;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const glowTop = ctx.createRadialGradient(240, 180, 0, 240, 180, 480);
+    glowTop.addColorStop(0, 'rgba(240,208,128,0.16)');
+    glowTop.addColorStop(1, 'rgba(240,208,128,0)');
+    ctx.fillStyle = glowTop;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const glowBottom = ctx.createRadialGradient(860, 1120, 0, 860, 1120, 520);
+    glowBottom.addColorStop(0, 'rgba(201,168,76,0.12)');
+    glowBottom.addColorStop(1, 'rgba(201,168,76,0)');
+    ctx.fillStyle = glowBottom;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    drawRoundedRect(ctx, 90, 140, 900, 980, 42);
+    ctx.fillStyle = palette.card;
+    ctx.fill();
+    ctx.strokeStyle = palette.border;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    ctx.textAlign = 'center';
+    ctx.fillStyle = palette.light;
+    ctx.font = '600 36px Cinzel, serif';
+    ctx.fillText('Günlük Söz', canvas.width / 2, 245);
+
+    ctx.font = '400 24px Crimson Pro, serif';
+    ctx.fillStyle = 'rgba(245,236,215,0.65)';
+    ctx.fillText(document.getElementById('app-date').textContent || '', canvas.width / 2, 290);
+
+    const lineY = 340;
+    const lineGradient = ctx.createLinearGradient(340, lineY, 740, lineY);
+    lineGradient.addColorStop(0, 'rgba(201,168,76,0)');
+    lineGradient.addColorStop(0.5, palette.gold);
+    lineGradient.addColorStop(1, 'rgba(201,168,76,0)');
+    ctx.strokeStyle = lineGradient;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(360, lineY);
+    ctx.lineTo(720, lineY);
+    ctx.stroke();
+
+    ctx.fillStyle = palette.text;
+    ctx.font = 'italic 58px Playfair Display, serif';
+    const quoteLines = wrapCanvasText(ctx, `“${currentQuote.text}”`, 700);
+    let y = 470;
+    for (const line of quoteLines) {
+      ctx.fillText(line, canvas.width / 2, y);
+      y += 78;
+    }
+
+    ctx.font = '400 32px Crimson Pro, serif';
+    ctx.fillStyle = 'rgba(245,236,215,0.72)';
+    ctx.fillText(`— ${currentQuote.source}`, canvas.width / 2, Math.min(y + 40, 915));
+
+    ctx.fillStyle = palette.light;
+    ctx.font = '400 26px Cinzel, serif';
+    ctx.fillText('Günlük Söz', canvas.width / 2, 1035);
+
+    canvas.toBlob(blob => {
+      if (!blob) {
+        reject(new Error('Gorsel olusturulamadi'));
+        return;
+      }
+      resolve(blob);
+    }, 'image/png');
+  });
+}
+
+async function shareWhatsApp() {
   if (!currentQuote) return;
-  const emojis = { 'Dini · Manevi':'🤲', 'Milli · Vatanseverlik':'🇹🇷', 'Hikmet · Özlü Söz':'🍃', 'Aile · Sevgi':'❤️' };
-  const e = emojis[currentQuote.cat] || '✨';
-  const msg = `${e} *${currentQuote.cat}*\n\n"${currentQuote.text}"\n\n— ${currentQuote.source}\n\n🌿 Hayırlı günler dilerim.`;
-  showToast('WhatsApp açılıyor... 🤲');
-  setTimeout(() => { window.location.href = `whatsapp://send?text=${encodeURIComponent(msg)}`; }, 300);
+
+  try {
+    showToast('Görsel hazırlanıyor...');
+    const blob = await createShareImageBlob();
+    const file = typeof File !== 'undefined'
+      ? new File([blob], 'gunluk-soz.png', { type: 'image/png' })
+      : null;
+
+    if (navigator.share && file && (!navigator.canShare || navigator.canShare({ files: [file] }))) {
+      await navigator.share({
+        files: [file],
+        title: 'Günlük Söz'
+      });
+      return;
+    }
+
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'gunluk-soz.png';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    showToast('Görsel indirildi');
+  } catch (error) {
+    console.error('Paylaşım açılamadı:', error);
+    showToast('Paylaşım açılamadı');
+  }
 }
 
 function getFavs() { try { return JSON.parse(localStorage.getItem('favs') || '[]'); } catch { return []; } }
