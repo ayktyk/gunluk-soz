@@ -19,8 +19,6 @@
   --text-dim: rgba(245,236,215,0.55);
   --border: rgba(201,168,76,0.25);
   --shadow: rgba(0,0,0,0.6);
-  --accent: #8b4513;
-  --whatsapp: #25d366;
 }
 
 body {
@@ -36,32 +34,18 @@ body {
   transition: background 0.8s ease;
 }
 
-/* ── THEMES ── */
 body.t-ottoman { --bg:#110b07; --card-bg:#1e1108; --gold:#c9a84c; --gold-light:#f0d080; --text:#f5ecd7; }
 body.t-modern  { --bg:#080e17; --card-bg:#0d1520; --gold:#4a9eff; --gold-light:#a0cfff; --text:#e6edf3; }
 body.t-natural { --bg:#0c110a; --card-bg:#141a0f; --gold:#7ab648; --gold-light:#b8e07a; --text:#f0ead6; }
 
-/* ── BG GLOW ── */
 body::before {
   content: '';
   position: fixed; inset: 0; z-index: 0; pointer-events: none;
   background:
     radial-gradient(ellipse 60% 40% at 25% 15%, rgba(201,168,76,0.07) 0%, transparent 70%),
     radial-gradient(ellipse 50% 35% at 75% 85%, rgba(201,168,76,0.05) 0%, transparent 70%);
-  transition: background 0.8s ease;
-}
-body.t-modern::before {
-  background:
-    radial-gradient(ellipse 60% 40% at 25% 15%, rgba(74,158,255,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 35% at 75% 85%, rgba(74,158,255,0.05) 0%, transparent 70%);
-}
-body.t-natural::before {
-  background:
-    radial-gradient(ellipse 60% 40% at 25% 15%, rgba(122,182,72,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 50% 35% at 75% 85%, rgba(122,182,72,0.05) 0%, transparent 70%);
 }
 
-/* ── HEADER ── */
 .app-header {
   position: relative; z-index: 2;
   text-align: center;
@@ -77,21 +61,15 @@ body.t-natural::before {
   text-transform: uppercase;
   margin-bottom: 4px;
 }
-.app-date {
-  font-size: 12px;
-  color: var(--text-dim);
-  letter-spacing: 1px;
-}
+.app-date { font-size: 12px; color: var(--text-dim); letter-spacing: 1px; }
 @keyframes fadeDown { from { opacity:0; transform:translateY(-12px);} to { opacity:1; transform:none;} }
 
-/* ── CARD ── */
 .card {
   position: relative; z-index: 2;
   width: 100%; max-width: 430px;
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 24px;
-  padding: 0;
   overflow: hidden;
   box-shadow: 0 12px 50px var(--shadow), inset 0 1px 0 rgba(255,255,255,0.04);
   transition: background 0.8s ease, border-color 0.8s ease;
@@ -99,7 +77,6 @@ body.t-natural::before {
 }
 @keyframes fadeUp { from { opacity:0; transform:translateY(28px);} to { opacity:1; transform:none;} }
 
-/* ── CARD TOP BAR ── */
 .card-topbar {
   display: flex;
   align-items: center;
@@ -108,214 +85,115 @@ body.t-natural::before {
   border-bottom: 1px solid var(--border);
 }
 .badge {
-  display: flex;
-  align-items: center;
-  gap: 7px;
+  display: flex; align-items: center; gap: 7px;
   background: var(--gold-dim);
   border: 1px solid rgba(201,168,76,0.3);
   color: var(--gold-light);
   font-family: 'Cinzel', serif;
-  font-size: 10.5px;
-  letter-spacing: 1.8px;
-  padding: 5px 13px;
-  border-radius: 20px;
+  font-size: 10.5px; letter-spacing: 1.8px;
+  padding: 5px 13px; border-radius: 20px;
   text-transform: uppercase;
-  transition: all 0.5s ease;
 }
-.badge-icon { font-size: 12px; }
 .ai-pill {
-  font-size: 9px;
-  font-family: 'Cinzel', serif;
-  letter-spacing: 1px;
-  color: var(--gold);
-  opacity: 0.5;
-  border: 1px solid var(--border);
-  padding: 3px 8px;
-  border-radius: 10px;
+  font-size: 9px; font-family: 'Cinzel', serif; letter-spacing: 1px;
+  color: var(--gold); opacity: 0.5;
+  border: 1px solid var(--border); padding: 3px 8px; border-radius: 10px;
 }
 
-/* ── QUOTE AREA ── */
 .quote-area {
   padding: 32px 28px 24px;
   position: relative;
   min-height: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
-
-/* decorative quote lines */
 .deco-line {
   width: 40px; height: 2px;
   background: linear-gradient(90deg, transparent, var(--gold), transparent);
-  margin: 0 auto 20px;
-  opacity: 0.5;
+  margin: 0 auto 20px; opacity: 0.5;
 }
-
 .quote-text {
   font-family: 'Playfair Display', serif;
   font-style: italic;
   font-size: clamp(17px, 4.8vw, 22px);
-  line-height: 1.8;
-  color: var(--text);
-  text-align: center;
-  position: relative;
-  z-index: 1;
-  transition: opacity 0.4s ease;
+  line-height: 1.8; color: var(--text); text-align: center;
+  position: relative; z-index: 1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 .t-ottoman .quote-text { font-family: 'Amiri', serif; font-size: clamp(18px, 5.2vw, 24px); }
-
-/* big decorative quote mark */
 .quote-text::before {
   content: '\201C';
-  position: absolute;
-  top: -22px; left: -8px;
-  font-size: 72px;
-  font-family: 'Playfair Display', serif;
-  color: var(--gold);
-  opacity: 0.12;
-  line-height: 1;
-  pointer-events: none;
+  position: absolute; top: -22px; left: -8px;
+  font-size: 72px; font-family: 'Playfair Display', serif;
+  color: var(--gold); opacity: 0.12; line-height: 1; pointer-events: none;
 }
-
 .deco-line.bottom { margin: 20px auto 0; }
 
-/* ── SOURCE ── */
-.source-area {
-  padding: 0 28px 24px;
-  text-align: center;
-}
+.source-area { padding: 0 28px 24px; text-align: center; }
 .source-text {
-  font-size: 13px;
-  color: var(--text-dim);
-  letter-spacing: 0.5px;
-  font-style: normal;
-  transition: opacity 0.4s ease;
+  font-size: 13px; color: var(--text-dim); letter-spacing: 0.5px;
+  transition: opacity 0.3s ease;
 }
 
-/* ── DIVIDER ── */
 .card-divider {
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--border), transparent);
   margin: 0 20px;
 }
 
-/* ── ACTIONS ── */
-.actions {
-  padding: 20px 20px 22px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+.actions { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 10px; }
 
 .share-btn {
   width: 100%;
   background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
-  border: none;
-  border-radius: 14px;
-  padding: 15px 20px;
-  color: #fff;
-  font-family: 'Cinzel', serif;
-  font-size: 14px;
-  letter-spacing: 1.5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
+  border: none; border-radius: 14px; padding: 15px 20px;
+  color: #fff; font-family: 'Cinzel', serif; font-size: 14px; letter-spacing: 1.5px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
   box-shadow: 0 4px 22px rgba(37,211,102,0.28);
-  transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+  transition: transform 0.15s, box-shadow 0.15s;
   -webkit-tap-highlight-color: transparent;
 }
-.share-btn:active { transform: scale(0.97); box-shadow: 0 2px 10px rgba(37,211,102,0.15); }
+.share-btn:active { transform: scale(0.97); }
 .share-btn:disabled { opacity: 0.5; pointer-events: none; }
 .share-btn svg { width: 20px; height: 20px; fill: white; flex-shrink: 0; }
 
-.bottom-row {
-  display: flex;
-  gap: 10px;
-}
+.bottom-row { display: flex; gap: 10px; }
 .next-btn, .fav-btn {
-  flex: 1;
-  background: transparent;
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 11px 10px;
-  color: var(--text-dim);
-  font-family: 'Cinzel', serif;
-  font-size: 11px;
-  letter-spacing: 1px;
-  cursor: pointer;
-  transition: border-color 0.2s, color 0.2s, background 0.2s;
-  -webkit-tap-highlight-color: transparent;
-  white-space: nowrap;
+  flex: 1; background: transparent;
+  border: 1px solid var(--border); border-radius: 12px; padding: 11px 10px;
+  color: var(--text-dim); font-family: 'Cinzel', serif; font-size: 11px; letter-spacing: 1px;
+  cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s;
+  -webkit-tap-highlight-color: transparent; white-space: nowrap;
 }
 .next-btn:active, .fav-btn:active {
-  border-color: var(--gold);
-  color: var(--gold-light);
-  background: var(--gold-dim);
+  border-color: var(--gold); color: var(--gold-light); background: var(--gold-dim);
 }
 
-/* ── LOADING STATE ── */
-.loading-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 16px;
-  padding: 20px 0;
-}
+.loading-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 20px 0; }
 .spinner {
   width: 36px; height: 36px;
-  border: 2px solid var(--border);
-  border-top-color: var(--gold);
-  border-radius: 50%;
-  animation: spin 0.9s linear infinite;
+  border: 2px solid var(--border); border-top-color: var(--gold);
+  border-radius: 50%; animation: spin 0.9s linear infinite;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 .loading-text {
-  font-size: 13px;
-  color: var(--text-dim);
-  font-family: 'Cinzel', serif;
-  letter-spacing: 1px;
+  font-size: 13px; color: var(--text-dim); font-family: 'Cinzel', serif; letter-spacing: 1px;
   animation: pulse 1.5s ease infinite;
 }
 @keyframes pulse { 0%,100%{opacity:0.4} 50%{opacity:1} }
 
-/* ── FAVORITES DRAWER ── */
 .fav-drawer {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: var(--card-bg);
-  border-top: 1px solid var(--border);
-  border-radius: 24px 24px 0 0;
-  padding: 20px 20px 36px;
-  z-index: 100;
-  transform: translateY(100%);
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--card-bg); border-top: 1px solid var(--border);
+  border-radius: 24px 24px 0 0; padding: 20px 20px 36px;
+  z-index: 100; transform: translateY(100%);
   transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-  max-height: 70vh;
-  overflow-y: auto;
+  max-height: 70vh; overflow-y: auto;
 }
 .fav-drawer.open { transform: translateY(0); }
-.fav-header {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 16px;
-}
-.fav-title {
-  font-family: 'Cinzel', serif;
-  font-size: 13px;
-  letter-spacing: 2px;
-  color: var(--gold);
-}
-.fav-close {
-  background: none; border: none;
-  color: var(--text-dim); font-size: 22px; cursor: pointer;
-  line-height: 1; padding: 4px;
-}
-.fav-item {
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
-}
+.fav-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.fav-title { font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 2px; color: var(--gold); }
+.fav-close { background: none; border: none; color: var(--text-dim); font-size: 22px; cursor: pointer; }
+.fav-item { padding: 12px 0; border-bottom: 1px solid var(--border); }
 .fav-item:last-child { border-bottom: none; }
 .fav-item-text { font-size: 14px; color: var(--text); margin-bottom: 4px; font-style: italic; }
 .fav-item-src { font-size: 12px; color: var(--text-dim); }
@@ -323,52 +201,35 @@ body.t-natural::before {
 
 .fav-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,0.5);
-  z-index: 99; opacity: 0; pointer-events: none;
-  transition: opacity 0.35s ease;
+  z-index: 99; opacity: 0; pointer-events: none; transition: opacity 0.35s ease;
 }
 .fav-overlay.open { opacity: 1; pointer-events: all; }
 
-/* ── TOAST ── */
 .toast {
-  position: fixed;
-  bottom: 28px; left: 50%;
+  position: fixed; bottom: 28px; left: 50%;
   transform: translateX(-50%) translateY(20px);
-  background: var(--gold);
-  color: #1a0f0a;
-  padding: 11px 22px;
-  border-radius: 30px;
-  font-family: 'Cinzel', serif;
-  font-size: 12px;
-  letter-spacing: 1px;
+  background: var(--gold); color: #1a0f0a;
+  padding: 11px 22px; border-radius: 30px;
+  font-family: 'Cinzel', serif; font-size: 12px; letter-spacing: 1px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-  z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s, transform 0.3s;
-  white-space: nowrap;
+  z-index: 200; opacity: 0; pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s; white-space: nowrap;
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
-/* ── FOOTER ── */
 .footer {
-  position: relative; z-index: 2;
-  margin-top: 18px;
-  font-size: 11px;
-  color: rgba(245,236,215,0.2);
-  text-align: center;
-  letter-spacing: 0.5px;
+  position: relative; z-index: 2; margin-top: 18px;
+  font-size: 11px; color: rgba(245,236,215,0.2); text-align: center;
 }
 
-/* ── FADE TRANSITION ── */
 .fade-out { opacity: 0 !important; transform: translateY(8px); }
-.quote-text, .source-text { transition: opacity 0.3s ease, transform 0.3s ease; }
 </style>
 </head>
 <body class="t-ottoman">
 
 <div class="app-header">
   <div class="app-logo">✦ Günlük Söz ✦</div>
-  <div class="app-date" id="app-date">— Yükleniyor —</div>
+  <div class="app-date" id="app-date"></div>
 </div>
 
 <div class="card" id="card">
@@ -387,7 +248,7 @@ body.t-natural::before {
       <div class="loading-text">Söz hazırlanıyor...</div>
     </div>
     <p class="quote-text" id="quote-text" style="display:none"></p>
-    <div class="deco-line bottom" style="display:none" id="deco-bottom"></div>
+    <div class="deco-line bottom" id="deco-bottom" style="display:none"></div>
   </div>
 
   <div class="source-area" id="source-area" style="display:none">
@@ -409,9 +270,8 @@ body.t-natural::before {
   </div>
 </div>
 
-<div class="footer" id="footer">Her gün güzel bir söz · Hayırlı olsun 🤲</div>
+<div class="footer">Her gün güzel bir söz · Hayırlı olsun 🤲</div>
 
-<!-- Favorites Drawer -->
 <div class="fav-overlay" id="fav-overlay" onclick="closeFavDrawer()"></div>
 <div class="fav-drawer" id="fav-drawer">
   <div class="fav-header">
@@ -424,36 +284,20 @@ body.t-natural::before {
 <div class="toast" id="toast"></div>
 
 <script>
-/* ─────────────────────────────────────────
-   CONFIG
-───────────────────────────────────────── */
 const CATEGORIES = [
-  { id: 'dini',   label: 'Dini · Manevi',        icon: '☪️',  theme: 't-ottoman',
-    prompt: 'Kur\'an ayetleri, hadis-i şerifler, İslam büyüklerinin sözleri, Mevlânâ, Yunus Emre, Hacı Bektaş-ı Veli, Ahmed Yesevi, Hz. Ali veya diğer İslam alimlerinden dini ve manevi bir öğüt veya söz.' },
-  { id: 'milli',  label: 'Milli · Vatanseverlik', icon: '🇹🇷', theme: 't-modern',
-    prompt: 'Atatürk, Mehmed Akif Ersoy, Namık Kemal, Ziya Gökalp veya Türk milliyetçiliği/vatanseverliği temalı büyük şahsiyetlerden güçlü, ilham verici bir söz ya da Türk atasözü.' },
-  { id: 'hikmet', label: 'Hikmet · Özlü Söz',     icon: '🍃',  theme: 't-natural',
-    prompt: 'Türk atasözleri, divan edebiyatı, Anadolu halk hikmeti, Nasreddin Hoca, Köroğlu gibi kaynaklardan ya da Türk kültürüne özgü bir hikmet sözü veya derin özlü söz.' },
-  { id: 'aile',   label: 'Aile · Sevgi',          icon: '❤️',  theme: 't-ottoman',
-    prompt: 'Anne, baba, aile, evlilik, çocuk sevgisi veya aile bağlarını anlatan İslami ya da Türk kültürüne uygun güzel, sıcak bir söz veya atasözü.' },
+  { id:'dini',   label:'Dini · Manevi',        icon:'☪️',  theme:'t-ottoman',
+    prompt:'Kur\'an ayetleri, hadis-i şerifler, Mevlânâ, Yunus Emre, Hacı Bektaş-ı Veli, Hz. Ali gibi kaynaklardan dini ve manevi bir söz.' },
+  { id:'milli',  label:'Milli · Vatanseverlik', icon:'🇹🇷', theme:'t-modern',
+    prompt:'Atatürk, Mehmed Akif Ersoy, Namık Kemal gibi isimlerden güçlü vatanseverlik temalı bir söz ya da Türk atasözü.' },
+  { id:'hikmet', label:'Hikmet · Özlü Söz',     icon:'🍃',  theme:'t-natural',
+    prompt:'Türk atasözleri, Nasreddin Hoca, Anadolu halk hikmeti veya divan edebiyatından derin bir özlü söz.' },
+  { id:'aile',   label:'Aile · Sevgi',          icon:'❤️',  theme:'t-ottoman',
+    prompt:'Anne, baba, aile, evlilik temalı İslami veya Türk kültürüne uygun sıcak bir söz.' },
 ];
 
-/* Rotate categories by day so each day has a consistent category */
-function getTodayCategory() {
-  const dayNum = Math.floor(Date.now() / 86400000);
-  return CATEGORIES[dayNum % CATEGORIES.length];
-}
-
-/* ─────────────────────────────────────────
-   STATE
-───────────────────────────────────────── */
 let currentQuote = null;
-let currentCategory = null;
-let sessionUsedCategories = [];
+let sessionUsed = [];
 
-/* ─────────────────────────────────────────
-   DATE
-───────────────────────────────────────── */
 function setDate() {
   const now = new Date();
   const days   = ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'];
@@ -462,33 +306,28 @@ function setDate() {
     `${now.getDate()} ${months[now.getMonth()]} ${now.getFullYear()} · ${days[now.getDay()]}`;
 }
 
-/* ─────────────────────────────────────────
-   APPLY THEME
-───────────────────────────────────────── */
 function applyTheme(cat) {
   document.body.className = cat.theme;
   document.getElementById('badge-icon').textContent  = cat.icon;
   document.getElementById('badge-label').textContent = cat.label;
 }
 
-/* ─────────────────────────────────────────
-   SHOW / HIDE LOADING
-───────────────────────────────────────── */
 function showLoading() {
-  document.getElementById('loading').style.display    = 'flex';
-  document.getElementById('quote-text').style.display = 'none';
-  document.getElementById('deco-bottom').style.display= 'none';
-  document.getElementById('source-area').style.display= 'none';
+  document.getElementById('loading').style.display     = 'flex';
+  document.getElementById('quote-text').style.display  = 'none';
+  document.getElementById('deco-bottom').style.display = 'none';
+  document.getElementById('source-area').style.display = 'none';
   document.getElementById('shareBtn').disabled = true;
 }
+
 function showQuote(text, source) {
-  document.getElementById('loading').style.display    = 'none';
-  const qt = document.getElementById('quote-text');
-  const st = document.getElementById('source-text');
-  qt.style.display = 'block';
+  document.getElementById('loading').style.display     = 'none';
+  document.getElementById('quote-text').style.display  = 'block';
   document.getElementById('deco-bottom').style.display = 'block';
   document.getElementById('source-area').style.display = 'block';
 
+  const qt = document.getElementById('quote-text');
+  const st = document.getElementById('source-text');
   qt.classList.add('fade-out');
   st.classList.add('fade-out');
   setTimeout(() => {
@@ -501,68 +340,40 @@ function showQuote(text, source) {
   document.getElementById('shareBtn').disabled = false;
 }
 
-/* ─────────────────────────────────────────
-   FETCH QUOTE FROM CLAUDE API
-───────────────────────────────────────── */
 async function fetchQuote(cat) {
-  const systemPrompt = `Sen Türk kültürü, İslam medeniyeti ve Anadolu hikmetini çok iyi bilen bir bilge danışmansın.
-Görevin: Verilen kategoriye uygun, güzel, anlamlı, GERÇEK bir söz veya atasözü bulmak.
-KURALLAR:
-- Mutlaka GERÇEK, tarihi olarak doğrulanmış bir söz seç (uydurma).
-- Kaynak kişi veya atıf gerçek olmalı.
-- Cevabını YALNIZCA şu JSON formatında ver, başka hiçbir şey yazma:
-{"quote": "...söz buraya...", "source": "...kaynak buraya..."}`;
-
-  const userPrompt = `Kategori: ${cat.label}
-Lütfen şu türden bir söz bul: ${cat.prompt}
-Güncel tarih: ${new Date().toLocaleDateString('tr-TR')}
-Önceki sözlerden farklı, taze bir söz seç.
-Sadece JSON döndür.`;
-
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+  const res = await fetch('/api/quote', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 1000,
-      system: systemPrompt,
-      messages: [{ role: "user", content: userPrompt }]
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 300,
+      system: 'Sen Türk kültürü ve İslam medeniyetini iyi bilen bir bilgesin. Verilen kategoriye uygun GERÇEK, tarihi olarak doğrulanmış bir söz seç. Cevabını YALNIZCA şu JSON formatında ver, başka hiçbir şey yazma: {"quote": "...söz...", "source": "...kaynak..."}',
+      messages: [{ role: 'user', content: `Kategori: ${cat.label}\n${cat.prompt}\nSadece JSON döndür.` }]
     })
   });
-
-  if (!response.ok) throw new Error('API error: ' + response.status);
-  const data = await response.json();
-
-  // Extract text
+  if (!res.ok) throw new Error('API ' + res.status);
+  const data = await res.json();
   const raw = data.content?.find(b => b.type === 'text')?.text || '';
-  const clean = raw.replace(/```json|```/g, '').trim();
-
-  // Parse JSON
-  const parsed = JSON.parse(clean);
+  const parsed = JSON.parse(raw.replace(/```json|```/g, '').trim());
   return { text: parsed.quote, source: parsed.source };
 }
 
-/* ─────────────────────────────────────────
-   LOAD QUOTE (main entry)
-───────────────────────────────────────── */
-async function loadNewQuote(forceCategory) {
-  // Pick category: rotate through all 4 in session
-  let cat;
-  if (forceCategory) {
-    cat = forceCategory;
-  } else {
-    // Pick next unused in session, then repeat
-    const unused = CATEGORIES.filter(c => !sessionUsedCategories.includes(c.id));
-    cat = unused.length > 0
-      ? unused[Math.floor(Math.random() * unused.length)]
-      : CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
-    if (!sessionUsedCategories.includes(cat.id)) {
-      sessionUsedCategories.push(cat.id);
-      if (sessionUsedCategories.length >= CATEGORIES.length) sessionUsedCategories = [];
-    }
-  }
+const FALLBACKS = [
+  { text: 'Sabır, imanın yarısıdır.', source: 'Hz. Ali (r.a.)' },
+  { text: 'İnsanların en hayırlısı, insanlara en fazla faydalı olandır.', source: 'Hz. Muhammed (s.a.v.)' },
+  { text: 'Yiğit düştüğü yerden kalkar.', source: 'Türk Atasözü' },
+  { text: 'Cennet, annelerin ayakları altındadır.', source: 'Hz. Muhammed (s.a.v.)' },
+];
 
-  currentCategory = cat;
+async function loadNewQuote() {
+  const unused = CATEGORIES.filter(c => !sessionUsed.includes(c.id));
+  const cat = unused.length > 0
+    ? unused[Math.floor(Math.random() * unused.length)]
+    : CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
+
+  sessionUsed.push(cat.id);
+  if (sessionUsed.length >= CATEGORIES.length) sessionUsed = [];
+
   applyTheme(cat);
   showLoading();
 
@@ -570,183 +381,95 @@ async function loadNewQuote(forceCategory) {
     const q = await fetchQuote(cat);
     currentQuote = { ...q, cat: cat.label, icon: cat.icon };
     showQuote(q.text, q.source);
-  } catch (err) {
-    console.error(err);
-    // Fallback
-    const fallbacks = [
-      { text: "Sabır, imanın yarısıdır.", source: "Hz. Ali (r.a.)" },
-      { text: "İnsanların en hayırlısı, insanlara en fazla faydalı olandır.", source: "Hz. Muhammed (s.a.v.)" },
-      { text: "Yiğit düştüğü yerden kalkar.", source: "Türk Atasözü" },
-      { text: "Cennet, annelerin ayakları altındadır.", source: "Hz. Muhammed (s.a.v.)" },
-    ];
-    const f = fallbacks[Math.floor(Math.random() * fallbacks.length)];
+  } catch (e) {
+    console.error(e);
+    const f = FALLBACKS[Math.floor(Math.random() * FALLBACKS.length)];
     currentQuote = { ...f, cat: cat.label, icon: cat.icon };
     showQuote(f.text, f.source);
     showToast('Bağlantı hatası · Yedek söz gösteriliyor');
   }
 }
 
-/* ─────────────────────────────────────────
-   SHARE
-───────────────────────────────────────── */
-function shareWhatsApp() {
-  if (!currentQuote) return;
-  const iconMap = { 'Dini · Manevi': '🤲', 'Milli · Vatanseverlik': '🇹🇷', 'Hikmet · Özlü Söz': '🍃', 'Aile · Sevgi': '❤️' };
-  const emoji = iconMap[currentQuote.cat] || '✨';
-  const msg = `${emoji} *${currentQuote.cat}*\n\n"${currentQuote.text}"\n\n— ${currentQuote.source}\n\n🌿 Hayırlı günler dilerim.`;
-  showToast('WhatsApp açılıyor... 🤲');
-  setTimeout(() => {
-    window.location.href = `whatsapp://send?text=${encodeURIComponent(msg)}`;
-  }, 300);
+function getTodayKey() {
+  const d = new Date();
+  return `q_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
 }
 
-/* ─────────────────────────────────────────
-   FAVORITES
-───────────────────────────────────────── */
-function getFavorites() {
-  try { return JSON.parse(localStorage.getItem('gunluk_favs') || '[]'); }
-  catch { return []; }
+async function init() {
+  setDate();
+  const key = getTodayKey();
+  try {
+    const cached = JSON.parse(localStorage.getItem(key) || 'null');
+    if (cached && cached.text) {
+      currentQuote = cached;
+      const cat = CATEGORIES.find(c => c.label === cached.cat) || CATEGORIES[0];
+      applyTheme(cat);
+      showQuote(cached.text, cached.source);
+      return;
+    }
+  } catch {}
+
+  const dayNum = Math.floor(Date.now() / 86400000);
+  const cat = CATEGORIES[dayNum % CATEGORIES.length];
+  applyTheme(cat);
+  showLoading();
+
+  try {
+    const q = await fetchQuote(cat);
+    currentQuote = { ...q, cat: cat.label, icon: cat.icon };
+    try { localStorage.setItem(key, JSON.stringify(currentQuote)); } catch {}
+    showQuote(q.text, q.source);
+  } catch (e) {
+    console.error(e);
+    const f = FALLBACKS[dayNum % FALLBACKS.length];
+    currentQuote = { ...f, cat: cat.label, icon: cat.icon };
+    showQuote(f.text, f.source);
+  }
 }
-function saveFavorites(favs) {
-  try { localStorage.setItem('gunluk_favs', JSON.stringify(favs)); } catch {}
+
+function shareWhatsApp() {
+  if (!currentQuote) return;
+  const emojis = { 'Dini · Manevi':'🤲', 'Milli · Vatanseverlik':'🇹🇷', 'Hikmet · Özlü Söz':'🍃', 'Aile · Sevgi':'❤️' };
+  const e = emojis[currentQuote.cat] || '✨';
+  const msg = `${e} *${currentQuote.cat}*\n\n"${currentQuote.text}"\n\n— ${currentQuote.source}\n\n🌿 Hayırlı günler dilerim.`;
+  showToast('WhatsApp açılıyor... 🤲');
+  setTimeout(() => { window.location.href = `whatsapp://send?text=${encodeURIComponent(msg)}`; }, 300);
 }
+
+function getFavs() { try { return JSON.parse(localStorage.getItem('favs') || '[]'); } catch { return []; } }
+function saveFavs(f) { try { localStorage.setItem('favs', JSON.stringify(f)); } catch {} }
+
 function saveFavorite() {
   if (!currentQuote) return;
-  const favs = getFavorites();
-  const exists = favs.some(f => f.text === currentQuote.text);
-  if (exists) { showToast('Zaten kaydedilmiş ✓'); return; }
+  const favs = getFavs();
+  if (favs.some(f => f.text === currentQuote.text)) { showToast('Zaten kaydedilmiş ✓'); return; }
   favs.unshift({ ...currentQuote, saved: new Date().toLocaleDateString('tr-TR') });
   if (favs.length > 50) favs.pop();
-  saveFavorites(favs);
+  saveFavs(favs);
   showToast('Kaydedildi ♥');
 }
+
 function openFavDrawer() {
-  const favs = getFavorites();
+  const favs = getFavs();
   const list = document.getElementById('fav-list');
-  if (favs.length === 0) {
-    list.innerHTML = '<div class="fav-empty">Henüz kayıt yok.<br>♡ butonuna basarak sözleri kaydedin.</div>';
-  } else {
-    list.innerHTML = favs.map((f, i) => `
-      <div class="fav-item">
-        <div class="fav-item-text">"${f.text}"</div>
-        <div class="fav-item-src">— ${f.source} &nbsp;·&nbsp; ${f.saved || ''}</div>
-      </div>
-    `).join('');
-  }
+  list.innerHTML = favs.length === 0
+    ? '<div class="fav-empty">Henüz kayıt yok.<br>♡ butonuna basarak kaydedin.</div>'
+    : favs.map(f => `<div class="fav-item"><div class="fav-item-text">"${f.text}"</div><div class="fav-item-src">— ${f.source} · ${f.saved||''}</div></div>`).join('');
   document.getElementById('fav-drawer').classList.add('open');
   document.getElementById('fav-overlay').classList.add('open');
 }
+
 function closeFavDrawer() {
   document.getElementById('fav-drawer').classList.remove('open');
   document.getElementById('fav-overlay').classList.remove('open');
 }
 
-/* ─────────────────────────────────────────
-   TOAST
-───────────────────────────────────────── */
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2400);
 }
-
-/* ─────────────────────────────────────────
-   DAILY CACHE — same quote all day
-───────────────────────────────────────── */
-function getTodayKey() {
-  const d = new Date();
-  return `quote_${d.getFullYear()}_${d.getMonth()}_${d.getDate()}`;
-}
-function getCachedQuote() {
-  try {
-    const key = getTodayKey();
-    const raw = localStorage.getItem(key);
-    if (!raw) return null;
-    return JSON.parse(raw);
-  } catch { return null; }
-}
-function cacheQuote(q) {
-  try {
-    localStorage.setItem(getTodayKey(), JSON.stringify(q));
-    // Clean old keys
-    const prefix = 'quote_';
-    const todayKey = getTodayKey();
-    Object.keys(localStorage).forEach(k => {
-      if (k.startsWith(prefix) && k !== todayKey) localStorage.removeItem(k);
-    });
-  } catch {}
-}
-
-/* ─────────────────────────────────────────
-   INIT
-───────────────────────────────────────── */
-async function init() {
-  setDate();
-
-  // Try cache first
-  const cached = getCachedQuote();
-  if (cached && cached.text && cached.source) {
-    currentQuote = cached;
-    // Find matching category
-    const matchCat = CATEGORIES.find(c => c.label === cached.cat) || getTodayCategory();
-    currentCategory = matchCat;
-    applyTheme(matchCat);
-    showQuote(cached.text, cached.source);
-    return;
-  }
-
-  // Fetch fresh quote
-  const cat = getTodayCategory();
-  currentCategory = cat;
-  applyTheme(cat);
-  showLoading();
-
-  try {
-    const q = await fetchQuote(cat);
-    currentQuote = { ...q, cat: cat.label, icon: cat.icon };
-    cacheQuote(currentQuote);
-    showQuote(q.text, q.source);
-  } catch (err) {
-    console.error(err);
-    const fallbacks = [
-      { text: "Sabır, imanın yarısıdır.", source: "Hz. Ali (r.a.)", cat: cat.label, icon: cat.icon },
-    ];
-    currentQuote = fallbacks[0];
-    showQuote(fallbacks[0].text, fallbacks[0].source);
-  }
-}
-
-// Wrap loadNewQuote to also cache
-const _origLoad = loadNewQuote;
-loadNewQuote = async function(forceCategory) {
-  currentCategory = null;
-  let cat;
-  if (forceCategory) {
-    cat = forceCategory;
-  } else {
-    const unused = CATEGORIES.filter(c => !sessionUsedCategories.includes(c.id));
-    cat = unused.length > 0
-      ? unused[Math.floor(Math.random() * unused.length)]
-      : CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
-    if (!sessionUsedCategories.includes(cat.id)) {
-      sessionUsedCategories.push(cat.id);
-      if (sessionUsedCategories.length >= CATEGORIES.length) sessionUsedCategories = [];
-    }
-  }
-  currentCategory = cat;
-  applyTheme(cat);
-  showLoading();
-  try {
-    const q = await fetchQuote(cat);
-    currentQuote = { ...q, cat: cat.label, icon: cat.icon };
-    showQuote(q.text, q.source);
-  } catch (err) {
-    console.error(err);
-    showQuote("Sabır, imanın yarısıdır.", "Hz. Ali (r.a.)");
-    showToast('Bağlantı hatası · Tekrar deneyin');
-  }
-};
 
 init();
 </script>
