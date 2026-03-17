@@ -307,6 +307,7 @@ let apiDisabled = false;
 let apiNoticeShown = false;
 
 try {
+  localUsed = JSON.parse(localStorage.getItem('quote-local-used') || '{}');
   apiDisabled = sessionStorage.getItem('quote-api-disabled') === '1'
     || localStorage.getItem('quote-api-disabled') === '1';
 } catch {}
@@ -315,10 +316,16 @@ const LOCAL_QUOTES = {
   dini: [
     { text: 'Sabır, imanın yarısıdır.', source: 'Hz. Ali (r.a.)' },
     { text: 'Ameller niyetlere göredir.', source: 'Hz. Muhammed (s.a.v.)' },
-    { text: 'Ne olursan ol, yine gel.', source: 'Mevlana Celaleddin Rumi' },
+    { text: 'Ne olursan ol, yine gel.', source: 'Mevlânâ Celâleddîn-i Rûmî' },
     { text: 'İnsanlara merhamet etmeyene Allah da merhamet etmez.', source: 'Hz. Muhammed (s.a.v.)' },
     { text: 'Gönül yap ki gönlünde Hak doğsun.', source: 'Hacı Bektaş-ı Veli' },
-    { text: 'Az söz, çok mânâ taşır.', source: 'Yunus Emre' }
+    { text: 'Az söz, çok mânâ taşır.', source: 'Yunus Emre' },
+    { text: 'İlim ilim bilmektir, ilim kendin bilmektir.', source: 'Yunus Emre' },
+    { text: 'Hiç bilenlerle bilmeyenler bir olur mu?', source: 'Kur’an-ı Kerim, Zümer 9' },
+    { text: 'Kolaylaştırınız, zorlaştırmayınız.', source: 'Hz. Muhammed (s.a.v.)' },
+    { text: 'Doğru söz yemin istemez.', source: 'Türk Atasözü' },
+    { text: 'Bir gönül yıktın ise bu kıldığın namaz değil.', source: 'Yunus Emre' },
+    { text: 'Kanaat tükenmez bir hazinedir.', source: 'Hz. Muhammed (s.a.v.)' }
   ],
   milli: [
     { text: 'Vatanını en çok seven, görevini en iyi yapandır.', source: 'Mustafa Kemal Atatürk' },
@@ -326,7 +333,13 @@ const LOCAL_QUOTES = {
     { text: 'Bayrakları bayrak yapan üstündeki kandır.', source: 'Arif Nihat Asya' },
     { text: 'Yiğit düştüğü yerden kalkar.', source: 'Türk Atasözü' },
     { text: 'Birlikten kuvvet doğar.', source: 'Türk Atasözü' },
-    { text: 'Egemenlik kayıtsız şartsız milletindir.', source: 'Mustafa Kemal Atatürk' }
+    { text: 'Egemenlik kayıtsız şartsız milletindir.', source: 'Mustafa Kemal Atatürk' },
+    { text: 'Ya istiklal ya ölüm.', source: 'Mustafa Kemal Atatürk' },
+    { text: 'Sahipsiz vatanın batması haktır; sen sahip çıkarsan bu vatan batmayacaktır.', source: 'Mehmet Akif Ersoy' },
+    { text: 'Vatan sevgisi imandandır.', source: 'Toplumsal söz' },
+    { text: 'Bir elin nesi var, iki elin sesi var.', source: 'Türk Atasözü' },
+    { text: 'İstiklal, uğrunda can verilen mukaddes bir emanettir.', source: 'Anonim' },
+    { text: 'Milletin bağımsızlığını yine milletin azim ve kararı kurtaracaktır.', source: 'Mustafa Kemal Atatürk' }
   ],
   hikmet: [
     { text: 'Az olsun, öz olsun.', source: 'Türk Atasözü' },
@@ -334,7 +347,13 @@ const LOCAL_QUOTES = {
     { text: 'Acele işe şeytan karışır.', source: 'Türk Atasözü' },
     { text: 'Damlayan su taşı deler.', source: 'Türk Atasözü' },
     { text: 'Bilenle bilmeyen bir olmaz.', source: 'Anonim hikmet sözü' },
-    { text: 'Çok söz yükü, az söz hikmeti götürür.', source: 'Anadolu irfanı' }
+    { text: 'Çok söz yükü, az söz hikmeti götürür.', source: 'Anadolu irfanı' },
+    { text: 'Görünen köy kılavuz istemez.', source: 'Türk Atasözü' },
+    { text: 'Taşıma su ile değirmen dönmez.', source: 'Türk Atasözü' },
+    { text: 'Söz gümüşse sükût altındır.', source: 'Türk Atasözü' },
+    { text: 'Akıl akıldan üstündür.', source: 'Türk Atasözü' },
+    { text: 'İşleyen demir ışıldar.', source: 'Türk Atasözü' },
+    { text: 'Vakit nakittir.', source: 'Anonim' }
   ],
   aile: [
     { text: 'Cennet annelerin ayakları altındadır.', source: 'Hz. Muhammed (s.a.v.)' },
@@ -342,7 +361,13 @@ const LOCAL_QUOTES = {
     { text: 'Aile, huzurun ilk mektebidir.', source: 'Anonim' },
     { text: 'Baba, evladın sırtını dayadığı dağdır.', source: 'Anonim' },
     { text: 'Sevgi paylaştıkça çoğalır.', source: 'Anonim' },
-    { text: 'Bir evde saygı varsa, o evde bereket vardır.', source: 'Anadolu sözü' }
+    { text: 'Bir evde saygı varsa, o evde bereket vardır.', source: 'Anadolu sözü' },
+    { text: 'Ana gibi yar, Bağdat gibi diyar olmaz.', source: 'Türk Atasözü' },
+    { text: 'Aile küçük bir toplumdur.', source: 'Anonim' },
+    { text: 'Ev alma, komşu al.', source: 'Türk Atasözü' },
+    { text: 'Sevgi emektir.', source: 'Anonim' },
+    { text: 'Yuvada huzur varsa gönülde de huzur vardır.', source: 'Anonim' },
+    { text: 'Anne kalbi çocuğun ilk evidir.', source: 'Anonim' }
   ]
 };
 
@@ -435,6 +460,12 @@ function markApiDisabled() {
   } catch {}
 }
 
+function saveLocalUsage() {
+  try {
+    localStorage.setItem('quote-local-used', JSON.stringify(localUsed));
+  } catch {}
+}
+
 function getLocalQuote(cat, seed) {
   const pool = LOCAL_QUOTES[cat.id] || FALLBACKS;
   if (!pool.length) return FALLBACKS[0];
@@ -443,16 +474,22 @@ function getLocalQuote(cat, seed) {
     return pool[seed % pool.length];
   }
 
-  const used = localUsed[cat.id] || [];
-  const availableIndexes = pool
+  const used = Array.isArray(localUsed[cat.id]) ? localUsed[cat.id] : [];
+  let availableIndexes = pool
     .map((_, index) => index)
     .filter(index => !used.includes(index));
+
+  if (availableIndexes.length === 0) {
+    localUsed[cat.id] = [];
+    availableIndexes = pool.map((_, index) => index);
+  }
 
   const index = availableIndexes.length > 0
     ? availableIndexes[Math.floor(Math.random() * availableIndexes.length)]
     : Math.floor(Math.random() * pool.length);
 
-  localUsed[cat.id] = availableIndexes.length > 0 ? [...used, index] : [index];
+  localUsed[cat.id] = [...(localUsed[cat.id] || []), index];
+  saveLocalUsage();
   return pool[index];
 }
 
